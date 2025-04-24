@@ -1,0 +1,25 @@
+version: "1.0"
+services:
+  HMS-db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_DATABASE: Hospital_mgmt
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  myphpadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    depends_on:
+      - HMS-db
+    environment:
+      PMA_HOST: HMS-db
+      MYSQL_ROOT_PASSWORD: pass
+    ports:
+      - "8080:80"
