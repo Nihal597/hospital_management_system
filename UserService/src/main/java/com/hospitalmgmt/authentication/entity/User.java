@@ -15,7 +15,7 @@ public class User {
     private Date dob;
     private String nationality;
     @Column(name = "phone_number")
-    private Integer phoneNumber;
+    private Long phoneNumber;
     private String email;
 
     public int getId() {
@@ -58,11 +58,11 @@ public class User {
         this.nationality = nationality;
     }
 
-    public Integer getPhoneNumber() {
+    public Long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(Long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -74,7 +74,12 @@ public class User {
         this.email = email;
     }
 
-    public User(String name, Integer age, Date dob, String nationality, Integer phoneNumber, String email) {
+    public User () {
+        super();
+    }
+
+    public User(String name, Integer age, Date dob, String nationality, Long phoneNumber, String email) {
+        super();
         this.name = name;
         this.age = age;
         this.dob = dob;
