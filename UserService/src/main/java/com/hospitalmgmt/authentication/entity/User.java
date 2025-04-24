@@ -2,27 +2,27 @@ package com.hospitalmgmt.authentication.entity;
 
 import jakarta.persistence.*;
 
+import java.sql.Date;
+
 @Entity
 @Table(name = "Users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
     private String name;
     private Integer age;
-    private Integer dob;
+    private Date dob;
     private String nationality;
     @Column(name = "phone_number")
     private Integer phoneNumber;
     private String email;
 
-    public User(String name, Integer age, Integer dob, String nationality, Integer phoneNumber, String email, Integer id) {
-        this.name = name;
-        this.age = age;
-        this.dob = dob;
-        this.nationality = nationality;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -34,14 +34,6 @@ public class User {
         this.name = name;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public Integer getAge() {
         return age;
     }
@@ -50,11 +42,11 @@ public class User {
         this.age = age;
     }
 
-    public Integer getDob() {
+    public Date getDob() {
         return dob;
     }
 
-    public void setDob(Integer dob) {
+    public void setDob(Date dob) {
         this.dob = dob;
     }
 
@@ -79,6 +71,15 @@ public class User {
     }
 
     public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public User(String name, Integer age, Date dob, String nationality, Integer phoneNumber, String email) {
+        this.name = name;
+        this.age = age;
+        this.dob = dob;
+        this.nationality = nationality;
+        this.phoneNumber = phoneNumber;
         this.email = email;
     }
 }
