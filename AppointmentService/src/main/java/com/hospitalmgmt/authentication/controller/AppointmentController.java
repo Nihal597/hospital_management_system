@@ -44,4 +44,14 @@ public class AppointmentController {
     public List<Appointment> getAllAppointments() {
         return appointmentService.getAllAppointments();
     }
+
+    @GetMapping("/patient/{patientId}")
+    public List<Appointment> getAppointmentsForPatient(@PathVariable Integer patientId) {
+        return appointmentService.getAppointmentsForPatient(patientId);
+    }
+
+    @GetMapping("/doctor/{doctorId}")
+    public List<Appointment> getAppointmentsForDoctor(@PathVariable Integer doctorId) {
+        return appointmentService.getAppointmentsForDoctor(doctorId);
+    }
 }
