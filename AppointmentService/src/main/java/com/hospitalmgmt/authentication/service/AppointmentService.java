@@ -42,4 +42,12 @@ public class AppointmentService {
     public List<Appointment> getAllAppointments() {
         return appointmentRepository.findAll();
     }
+
+    public List<Appointment> getAppointmentsForPatient(Integer patientId) {
+        return appointmentRepository.findByPatientId(patientId);
+    }
+
+    public List<Appointment> getAppointmentsForDoctor(Integer doctorId) {
+        return appointmentRepository.findByDoctorId(doctorId);
+    }
 }
