@@ -46,3 +46,29 @@ services:
         condition: service_healthy
     ports:
       - "9000:9000"
+
+labtest-db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: labtestuser
+      POSTGRES_PASSWORD: labtestpassword
+      POSTGRES_DB: lab_test_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./labtest-postgres-data:/var/lib/postgresql/data
+
+labtest-service:
+    build:
+      context: LabTestService
+    restart: always
+    environment:
+      - DB_USER=labtestuser
+      - DB_PASSWORD=labtestpassword
+      - DB_HOST=labtest-db
+      - DB_NAME=lab_test_db
+    ports:
+      - "8000:8000"
+    depends_on:
+      - labtest-db
