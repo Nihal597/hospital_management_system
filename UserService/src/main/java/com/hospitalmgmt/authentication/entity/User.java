@@ -18,10 +18,6 @@ public class User {
     protected Long phoneNumber;
     protected String email;
 
-    public User() {
-
-    }
-
     public User(String name, Integer age, Date dob, String nationality, Long phoneNumber, String email) {
         super();
         this.name = name;
