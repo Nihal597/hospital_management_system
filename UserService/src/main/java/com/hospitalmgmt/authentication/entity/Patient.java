@@ -17,6 +17,10 @@ public class Patient extends User {
     @Column(name = "insurance_number")
     private Long insuranceNumber;
 
+    public Patient() {
+
+    }
+
     public Patient(String name, Integer age, Date dob, String nationality, Long phoneNumber, String email, String bloodGroup, Date registrationDate, Long insuranceNumber) {
         super(name, age, dob, nationality, phoneNumber, email);
         this.bloodGroup = bloodGroup;
