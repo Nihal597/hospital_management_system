@@ -35,35 +35,17 @@ public class SecurityConfig {
         this.userDetailsService = userDetailsService;
     }
 
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-////        http .csrf(AbstractHttpConfigurer::disable)
-////                .authorizeHttpRequests(authorise -> authorise
-////                        .requestMatchers( "/api/users/**").permitAll()
-//////                        .requestMatchers("/api/users/admin/**").hasAuthority("ADMIN")
-//////                        .requestMatchers(HttpMethod.GET, "/api/users/**").hasAnyRole("ADMIN" , "USER")
-//////                        .requestMatchers(HttpMethod.POST,"/api/users/**").hasRole("ADMIN")
-//////                                .requestMatchers(HttpMethod.PUT, "/api/users/**").hasRole("ADMIN")
-//////                                .requestMatchers(HttpMethod.DELETE, "/api/users/**").hasRole("ADMIN")
-////                                .anyRequest().authenticated())
-////                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-////                .authenticationProvider(authenticationProvider())
-////                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-//        http.authorizeHttpRequests(authorise -> authorise.requestMatchers("/api/**").permitAll().anyRequest().authenticated()).csrf(AbstractHttpConfigurer::disable);
-//        return http.build();
-//    }
-
 @Bean
 public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
  http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorise -> authorise
-            .requestMatchers("/api/users/**").permitAll()
-            .requestMatchers(HttpMethod.GET, "/api/users/**").permitAll()
-            .requestMatchers(HttpMethod.POST, "/api/users/**").permitAll()
-            .requestMatchers(HttpMethod.PUT, "/api/users/**").permitAll()
-            .requestMatchers(HttpMethod.DELETE, "/api/users/**").permitAll()
-            // Our private endpoints
+                                                .requestMatchers( "/api/users/createAdmin","/api/users/generateToken").permitAll()
+                                                .requestMatchers("/api/users/admin/**").hasAuthority("ADMIN")
+                                                .requestMatchers(HttpMethod.GET, "/api/users/**").hasAnyRole("ADMIN" , "USER")
+                                                .requestMatchers(HttpMethod.POST,"/api/users/**").hasRole("ADMIN")
+                                                        .requestMatchers(HttpMethod.PUT, "/api/users/**").hasRole("ADMIN")
+                                                        .requestMatchers(HttpMethod.DELETE, "/api/users/**").hasRole("ADMIN")
             .anyRequest().authenticated())
          .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
@@ -79,8 +61,8 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     }
 
     /*
-     * Authentication provider configuration
-     * Links UserDetailsService and PasswordEncoder
+     * Authentication provider
+     *
      */
     @Bean
     public AuthenticationProvider authenticationProvider() {
@@ -90,10 +72,6 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return provider;
     }
 
-    /*
-     * Authentication manager bean
-     * Required for programmatic authentication (e.g., in /generateToken)
-     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();

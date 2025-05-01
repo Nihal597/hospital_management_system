@@ -7,9 +7,6 @@ import java.sql.Date;
 @Entity
 @Table(name = "Patients")
 public class Patient extends User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer id;
     @Column(name = "blood_group")
     private String bloodGroup;
     @Column(name = "registration_date")
