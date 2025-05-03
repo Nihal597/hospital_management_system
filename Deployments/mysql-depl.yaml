@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-depl
+spec:
+  selector:
+    matchLabels:
+      app: mysql-depl
+  template:
+    metadata:
+      labels:
+        app: mysql-depl
+    spec:
+      containers:
+      - name: mysql-depl
+        image: mysql
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: pass
+        - name: MYSQL_DATABASE
+          value: Hospital_mgmt
+        - name: MYSQL_USER
+          value: admin
+        - name: MYSQL_PASSWORD
+          value: admin
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-clusterip
+spec:
+  selector:
+    app: mysql-depl
+  ports:
+  - port: 3306
+    targetPort: 3306
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-loadbalancer
+spec:
+  selector:
+    app: mysql-depl
+  ports:
+    - port: 3306
+      targetPort: 3306
+  type: LoadBalancer
+

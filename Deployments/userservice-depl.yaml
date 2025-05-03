@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: userservice-depl
+spec:
+  selector:
+    matchLabels:
+      app: userservice-depl
+  template:
+    metadata:
+      labels:
+        app: userservice-depl
+    spec:
+      containers:
+      - name: userservice-depl
+        image: nihal597/user-service
+        ports:
+        - containerPort: 9000
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: dev
+        - name: DATABASE_URL
+          value: jdbc:mysql://mysql-clusterip:3306/Hospital_mgmt
+        - name: DATABASE_USER
+          value: admin
+        - name: DATABASE_PASSWORD
+          value: admin
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: userservice-clusterip
+spec:
+  selector:
+    app: userservice-depl
+  ports:
+  - port: 80
+    targetPort: 9000
