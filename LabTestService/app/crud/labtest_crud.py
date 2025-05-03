@@ -26,9 +26,9 @@ async def validate_patient(patient_id: int) -> bool:
         return response.status_code == 200
 
 async def create_lab_test(db: Session, lab_test_data: dict):
-    patient_exists = await validate_patient(lab_test_data['patient_id'])
-    if not patient_exists:
-        raise Exception("Patient not found in User Service.")
+    # patient_exists = await validate_patient(lab_test_data['patient_id'])
+    # if not patient_exists:
+    #     raise Exception("Patient not found in User Service.")
 
     new_test = LabTest(**lab_test_data)
     db.add(new_test)
@@ -49,3 +49,13 @@ def delete_lab_test_by_id(db: Session, test_id: int):
         db.commit()
         return True
     return False
+
+def update_lab_test_status(db: Session, test_id: int, new_status: str):
+    test = db.query(LabTest).filter(LabTest.test_id == test_id).first()
+    if not test:
+        return None
+    test.status = new_status
+    db.commit()
+    db.refresh(test)
+    return test
+

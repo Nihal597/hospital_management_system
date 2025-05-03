@@ -42,3 +42,13 @@ def delete_lab_test(test_id: int, db: Session = Depends(get_db)):
     if not success:
         raise HTTPException(status_code=404, detail="Lab Test Not Found")
     return {"message": f"Lab Test {test_id} deleted successfully"}
+
+@router.put("/api/labtests/{test_id}/status")
+def update_lab_test_status(test_id: int, status: str, db: Session = Depends(get_db)):
+    updated_test = labtest_crud.update_lab_test_status(db, test_id, status)
+    if not updated_test:
+        raise HTTPException(status_code=404, detail="Lab Test Not Found")
+    return {"message": "Lab Test status updated", "data": {
+        "test_id": updated_test.test_id,
+        "status": updated_test.status
+    }}

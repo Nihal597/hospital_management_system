@@ -44,3 +44,16 @@ def delete_test_order(order_id: int, db: Session = Depends(get_db)):
     if not success:
         raise HTTPException(status_code=404, detail="Test Order Not Found")
     return {"message": f"Test Order {order_id} deleted successfully"}
+
+@router.put("/api/testorders/{order_id}/status")
+def update_test_order_status(order_id: int, status: str, db: Session = Depends(get_db)):
+    updated_order = testorder_crud.update_test_order_status(db, order_id, status)
+    if not updated_order:
+        raise HTTPException(status_code=404, detail="Test Order Not Found")
+    return {
+        "message": "Test Order status updated",
+        "data": {
+            "order_id": updated_order.order_id,
+            "status": updated_order.status
+        }
+    }
