@@ -21,7 +21,7 @@ async def validate_doctor(doctor_id: int) -> bool:
     token = await get_jwt_token()
     headers = {"Authorization": f"Bearer {token}"}
     async with httpx.AsyncClient() as client:
-        response = await client.get(f"{USER_SERVICE_URL}/doctors/{doctor_id}", headers=headers)
+        response = await client.get(f"{USER_SERVICE_URL}/api/users/doctors/{doctor_id}", headers=headers)
         return response.status_code == 200
 
 async def create_test_order(db: Session, order_data: dict):

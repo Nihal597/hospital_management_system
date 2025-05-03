@@ -15,14 +15,14 @@ async def get_jwt_token() -> str:
             json={"username": USERNAME, "password": PASSWORD}
         )
         response.raise_for_status()
-        return response.text  # because the Spring Boot service returns token as plain text
+        return response.text 
 
 # Call patient API with Bearer token
 async def validate_patient(patient_id: int) -> bool:
     token = await get_jwt_token()
     headers = {"Authorization": f"Bearer {token}"}
     async with httpx.AsyncClient() as client:
-        response = await client.get(f"{USER_SERVICE_URL}/patients/{patient_id}", headers=headers)
+        response = await client.get(f"{USER_SERVICE_URL}api/users/patients/{patient_id}", headers=headers)
         return response.status_code == 200
 
 async def create_lab_test(db: Session, lab_test_data: dict):
