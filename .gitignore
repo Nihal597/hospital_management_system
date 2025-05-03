@@ -22,3 +22,44 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+
+
+# Ignore Docker-related files
+docker-compose.override.yml
+Dockerfile
+*.log
+
+# Ignore PostgreSQL data volumes
+labtest-postgres-data/
+HMS-volumes/
+
+# Ignore IDE/editor specific files
+.idea/
+.vscode/
+*.swp
+
+# Ignore environment files
+*.env
+
+# Ignore build files
+target/
+bin/
+build/
+
+# Ignore Python cache files (if applicable)
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore node_modules (if any JavaScript/React files)
+node_modules/
+
+# Ignore logs
+*.log
+
+# Ignore macOS system files
+.DS_Store
+
+# Ignore Windows system files
+Thumbs.db

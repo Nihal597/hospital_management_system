@@ -1,13 +1,28 @@
 import httpx
 from sqlalchemy.orm import Session
 from app.models.lab_test import LabTest
-from app.models.test_order import TestOrder
 
-USER_SERVICE_URL = "http://localhost:9000" 
+# USER_SERVICE_URL = "http://localhost:9000"
+USER_SERVICE_URL = "http://user-service:9000"
+USERNAME = "anshul"
+PASSWORD = "anshul@123"
 
-async def validate_patient(patient_id: int) -> bool:
+# Get a JWT token
+async def get_jwt_token() -> str:
     async with httpx.AsyncClient() as client:
-        response = await client.get(f"{USER_SERVICE_URL}/patients/{patient_id}")
+        response = await client.post(
+            f"{USER_SERVICE_URL}/api/users/generateToken",
+            json={"username": USERNAME, "password": PASSWORD}
+        )
+        response.raise_for_status()
+        return response.text  # because the Spring Boot service returns token as plain text
+
+# Call patient API with Bearer token
+async def validate_patient(patient_id: int) -> bool:
+    token = await get_jwt_token()
+    headers = {"Authorization": f"Bearer {token}"}
+    async with httpx.AsyncClient() as client:
+        response = await client.get(f"{USER_SERVICE_URL}/patients/{patient_id}", headers=headers)
         return response.status_code == 200
 
 async def create_lab_test(db: Session, lab_test_data: dict):
