@@ -25,9 +25,9 @@ async def validate_doctor(doctor_id: int) -> bool:
         return response.status_code == 200
 
 async def create_test_order(db: Session, order_data: dict):
-    # doctor_exists = await validate_doctor(order_data['doctor_id'])
-    # if not doctor_exists:
-    #     raise Exception("Doctor not found in User Service.")
+    doctor_exists = await validate_doctor(order_data['doctor_id'])
+    if not doctor_exists:
+        raise Exception("Doctor not found in User Service.")
 
     new_order = TestOrder(**order_data)
     db.add(new_order)
