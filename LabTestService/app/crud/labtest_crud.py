@@ -7,8 +7,34 @@ USER_SERVICE_URL = "http://localhost:9000"
 USERNAME = "anshul"
 PASSWORD = "anshul@123"
 
+ADMIN_PAYLOAD = {
+    "username": USERNAME,
+    "password": PASSWORD,
+    "name": "Anshul",
+    "email": "anshul@gmail.com",
+    "roles": "ROLE_ADMIN"
+}
+
+# Create Admin (should ideally run once, idempotent behavior added)
+async def ensure_admin_exists():
+    async with httpx.AsyncClient() as client:
+        try:
+            response = await client.post(f"{USER_SERVICE_URL}/api/users/createAdmin", json=ADMIN_PAYLOAD)
+            if response.status_code in (200, 201):
+                print("Admin created successfully.")
+            elif response.status_code == 409:
+                print("Admin already exists.")
+            else:
+                print("Admin creation response:", response.text)
+        except httpx.HTTPStatusError as exc:
+            if exc.response.status_code == 400:
+                print("Admin already exists or invalid input.")
+            else:
+                raise
+            
 # Get a JWT token
 async def get_jwt_token() -> str:
+    await ensure_admin_exists()
     async with httpx.AsyncClient() as client:
         response = await client.post(
             f"{USER_SERVICE_URL}/api/users/generateToken",
