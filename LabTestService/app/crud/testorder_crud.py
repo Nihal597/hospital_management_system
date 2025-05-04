@@ -35,6 +35,8 @@ async def create_test_order(db: Session, order_data: dict):
     db.refresh(new_order)
     return new_order
 
+def get_all_test_orders(db: Session):
+    return db.query(TestOrder).all()
 
 def get_test_order_by_id(db: Session, order_id: int):
     return db.query(TestOrder).filter(TestOrder.order_id == order_id).first()

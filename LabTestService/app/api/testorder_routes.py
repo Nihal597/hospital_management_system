@@ -23,6 +23,12 @@ async def create_test_order(order: dict, db: Session = Depends(get_db)):
         }}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+    
+@router.get("/api/testorders")
+def get_all_test_orders(db: Session = Depends(get_db)):
+    orders = testorder_crud.get_all_test_orders(db)
+    return orders
+
 
 @router.get("/api/testorders/doctor/{doctor_id}")
 def get_doctor_test_order(doctor_id: int, db: Session = Depends(get_db)):

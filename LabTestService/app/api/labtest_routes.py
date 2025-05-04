@@ -24,6 +24,11 @@ async def create_lab_test(lab_test: dict, db: Session = Depends(get_db)):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
+@router.get("/api/labtests")
+def get_all_lab_tests(db: Session = Depends(get_db)):
+    tests = labtest_crud.get_all_lab_tests(db)
+    return tests
+
 @router.get("/api/labtests/{test_id}")
 def get_lab_test(test_id: int, db: Session = Depends(get_db)):
     test = labtest_crud.get_lab_test_by_id(db, test_id)

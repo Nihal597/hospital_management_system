@@ -2,8 +2,8 @@ import httpx
 from sqlalchemy.orm import Session
 from app.models.lab_test import LabTest
 
-# USER_SERVICE_URL = "http://localhost:9000"
-USER_SERVICE_URL = "http://user-service:9000"
+USER_SERVICE_URL = "http://localhost:9000"
+# USER_SERVICE_URL = "http://user-service:9000"
 USERNAME = "anshul"
 PASSWORD = "anshul@123"
 
@@ -35,6 +35,9 @@ async def create_lab_test(db: Session, lab_test_data: dict):
     db.commit()
     db.refresh(new_test)
     return new_test
+
+def get_all_lab_tests(db: Session):
+    return db.query(LabTest).all()
 
 def get_lab_test_by_id(db: Session, test_id: int):
     return db.query(LabTest).filter(LabTest.test_id == test_id).first()
