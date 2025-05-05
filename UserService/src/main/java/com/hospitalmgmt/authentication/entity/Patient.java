@@ -7,19 +7,12 @@ import java.sql.Date;
 @Entity
 @Table(name = "Patients")
 public class Patient extends User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer id;
     @Column(name = "blood_group")
     private String bloodGroup;
     @Column(name = "registration_date")
     private Date registrationDate;
     @Column(name = "insurance_number")
     private Long insuranceNumber;
-
-    public Patient() {
-
-    }
 
     public Patient(String name, Integer age, Date dob, String nationality, Long phoneNumber, String email, String bloodGroup, Date registrationDate, Long insuranceNumber) {
         super(name, age, dob, nationality, phoneNumber, email);

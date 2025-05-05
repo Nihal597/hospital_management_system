@@ -11,12 +11,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class UserInfoDetails implements UserDetails {
 
-    private String username; // Changed from 'name' to 'email' for clarity
+    private String username;
     private String password;
     private List<GrantedAuthority> authorities;
 
     public UserInfoDetails(Admin userInfo) {
-        this.username = userInfo.getUsername(); // Use email as username
+        this.username = userInfo.getUsername();
         this.password = userInfo.getPassword();
         this.authorities = List.of(userInfo.getRoles().split(","))
                 .stream()

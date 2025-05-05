@@ -16,8 +16,6 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/users")
-//@PreAuthorize("isAuthenticated()")
 public class AdminController {
 
     @Autowired
@@ -29,47 +27,15 @@ public class AdminController {
     @Autowired
     private UserInfoService service;
 
-//    @GetMapping("/admin")
-////    @PreAuthorize("hasRole('ADMIN')")
-//    public List<Admin> getAlladmin() {
-//
-//        return adminRepository.findAll();
-//    }
+    @Autowired
+    private AdminRepository adminRepository;
 
-//    @GetMapping("/admin/{id}")
-////    @PreAuthorize("hasRole('ADMIN')")
-//    public Admin getAdmin(@PathVariable int id) {
-//        return adminRepository.findById(id).orElse(null);
-//    }
-
-//    @PostMapping("/admin")
-////    @PreAuthorize("hasRole('ADMIN')")
-//    public String createAdmin(@RequestBody Admin Admin){
-//        return adminService.addUser(Admin);
-//    }
-
-//    @PutMapping("/admin")
-////    @PreAuthorize("hasRole('ADMIN')")
-//    public Admin updateAdmin(@RequestBody Admin Admin) {
-//        return adminRepository.save(Admin);
-//    }
-//
-//    @DeleteMapping("/admin/{id}")
-////    @PreAuthorize("hasRole('ADMIN')")
-//    public String deleteAdmin(@PathVariable int id) {
-//        adminRepository.deleteById(id);
-//        return "Admin with id : " + id + "deleted";
-//    }
-
-//    }
-
-
-
-    @PostMapping("/addNewUser")
+    @PostMapping("/api/users/createAdmin")
     public String addNewUser(@RequestBody Admin userInfo) {
         return service.addUser(userInfo);
     }
-        @PostMapping("/generateToken")
+
+        @PostMapping("/api/users/generateToken")
     public String authenticateAndGetToken(@RequestBody Admin authRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
