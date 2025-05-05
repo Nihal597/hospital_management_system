@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.hospitalmgmt.authentication.dtos.AppointmentDTO;
 import com.hospitalmgmt.authentication.entity.Appointment;
 import com.hospitalmgmt.authentication.repository.AppointmentRepository;
 
@@ -17,8 +18,15 @@ public class AppointmentService {
         this.appointmentRepository = appointmentRepository;
     }
 
-    public Appointment bookAppointment(Appointment appointment) {
-        appointment.setStatus("Booked");
+    public Appointment bookAppointment(AppointmentDTO dto) {
+        dto.setStatus("Booked");
+        Appointment appointment = new Appointment();
+        appointment.setDoctorId(dto.getDoctorId());
+        appointment.setPatient(dto.getPatientId());
+        appointment.setAppointmentDate(dto.getAppointmentDate());
+        appointment.setAppointmentTime(dto.getAppointmentTime());
+        appointment.setStatus(dto.getStatus());
+        appointment.setReason(dto.getReason());
         return appointmentRepository.save(appointment);
     }
 

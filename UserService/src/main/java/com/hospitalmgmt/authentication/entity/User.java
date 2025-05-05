@@ -1,9 +1,12 @@
 package com.hospitalmgmt.authentication.entity;
 
-import jakarta.persistence.*;
-
-import java.io.Serializable;
 import java.sql.Date;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public class User {
@@ -27,4 +30,8 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.email = email;
     }
+
+    public User() {
+    }
+
 }
