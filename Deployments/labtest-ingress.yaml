@@ -9,8 +9,8 @@ spec:
   - host: localhost
     http:
       paths:
-      - pathType: Prefix
-        path: "/api"
+      - path: /api(/|$)(.*)
+        pathType: Prefix
         backend:
           service:
             name: labtestservice-clusterip

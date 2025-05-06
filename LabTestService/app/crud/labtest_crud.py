@@ -2,8 +2,8 @@ import httpx
 from sqlalchemy.orm import Session
 from app.models.lab_test import LabTest
 
-USER_SERVICE_URL = "http://localhost:9000"
-# USER_SERVICE_URL = "http://user-service:9000"
+# USER_SERVICE_URL = "http://localhost:9000" 
+USER_SERVICE_URL = "http://userservice-clusterip"
 USERNAME = "anshul"
 PASSWORD = "anshul@123"
 
@@ -31,7 +31,7 @@ async def ensure_admin_exists():
                 print("Admin already exists or invalid input.")
             else:
                 raise
-            
+
 # Get a JWT token
 async def get_jwt_token() -> str:
     await ensure_admin_exists()
