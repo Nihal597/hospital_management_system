@@ -7,8 +7,8 @@ app = FastAPI()
 # Create all tables
 Base.metadata.create_all(bind=engine)
 
-app.include_router(labtest_routes.router)
-app.include_router(testorder_routes.router)
+app.include_router(labtest_routes.router, prefix="/api")
+app.include_router(testorder_routes.router, prefix="/api")
 
 if __name__ == "__main__":
     import uvicorn
