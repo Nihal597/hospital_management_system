@@ -1,4 +1,4 @@
-package com.hospitalmgmt.authentication.entity;
+package com.hospitalmgmt.appointment.entity;
 
 import java.sql.Date;
 import java.sql.Time;

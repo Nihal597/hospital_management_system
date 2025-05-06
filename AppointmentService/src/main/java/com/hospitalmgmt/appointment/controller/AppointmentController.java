@@ -1,4 +1,4 @@
-package com.hospitalmgmt.authentication.controller;
+package com.hospitalmgmt.appointment.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hospitalmgmt.authentication.entity.Appointment;
-import com.hospitalmgmt.authentication.service.AppointmentService;
+import com.hospitalmgmt.appointment.entity.Appointment;
+import com.hospitalmgmt.appointment.service.AppointmentService;
 
 @RestController
 @RequestMapping("/api/appointments")

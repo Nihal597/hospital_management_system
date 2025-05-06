@@ -1,4 +1,4 @@
-package com.hospitalmgmt.authentication;
+package com.hospitalmgmt.appointment;
 
 import java.util.Optional;
 
