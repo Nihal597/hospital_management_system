@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 @RestController
+@RequestMapping("/api/inovices")
 public class InvoiceController {
 
     @Autowired
