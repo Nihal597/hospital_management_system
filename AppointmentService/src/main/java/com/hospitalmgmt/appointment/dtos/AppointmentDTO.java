@@ -1,4 +1,4 @@
-package com.hospitalmgmt.authentication.dtos;
+package com.hospitalmgmt.appointment.dtos;
 
 import java.sql.Date;
 import java.sql.Time;
