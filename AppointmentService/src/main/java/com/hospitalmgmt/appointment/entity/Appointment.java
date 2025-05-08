@@ -8,8 +8,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,13 +18,11 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "doctor_id", nullable = false)
-    private Doctor doctor;
+    @Column(name = "doctor_id", nullable = false)
+    private Integer doctorId;
 
-    @ManyToOne
-    @JoinColumn(name = "patient_id", nullable = false)
-    private Patient patient;
+    @Column(name = "patient_id", nullable = false)
+    private Integer patientId;
 
     @Column(name = "appointment_date", nullable = false)
     private Date appointmentDate;
@@ -35,19 +31,21 @@ public class Appointment {
     private Time appointmentTime;
 
     @Column(name = "status", nullable = false)
-    private String status; // Booked, Cancelled, Completed, etc.
+    private String status;
 
     @Column(name = "reason")
-    private String reason; // Optional - why patient booked appointment
+    private String reason;
 
     public Appointment() {
     }
 
     // Constructor
-    public Appointment(Doctor doctor, Patient patient, Date appointmentDate, Time appointmentTime, String status,
+    public Appointment(
+            Integer doctor,
+            Integer patient, Date appointmentDate, Time appointmentTime, String status,
             String reason) {
-        this.doctor = doctor;
-        this.patient = patient;
+        this.doctorId = doctor;
+        this.patientId = patient;
         this.appointmentDate = appointmentDate;
         this.appointmentTime = appointmentTime;
         this.status = status;
@@ -56,7 +54,7 @@ public class Appointment {
 
     @Override
     public String toString() {
-        return "Appointment [id=" + id + ", doctor=" + doctor + ", patient=" + patient + ", appointmentDate="
+        return "Appointment [id=" + id + ", doctorId=" + doctorId + ", patientId=" + patientId + ", appointmentDate="
                 + appointmentDate + ", appointmentTime=" + appointmentTime + ", status=" + status + ", reason=" + reason
                 + "]";
     }
@@ -78,29 +76,29 @@ public class Appointment {
     /**
      * @return the doctor
      */
-    public Doctor getDoctor() {
-        return doctor;
+    public Integer getDoctorId() {
+        return doctorId;
     }
 
     /**
      * @param doctor the doctor to set
      */
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
+    public void setDoctorId(Integer doctorId) {
+        this.doctorId = doctorId;
     }
 
     /**
      * @return the patient
      */
-    public Patient getPatient() {
-        return patient;
+    public Integer getPatient() {
+        return patientId;
     }
 
     /**
      * @param patient the patient to set
      */
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setPatient(Integer patientId) {
+        this.patientId = patientId;
     }
 
     /**

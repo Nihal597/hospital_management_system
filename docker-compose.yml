@@ -80,3 +80,20 @@ services:
     depends_on:
       labtest-db:
         condition: service_healthy
+     
+  appointment-service:
+    restart: always
+    build:
+      context: AppointmentService
+    volumes:
+      - ./src/main/resources:/app/src/main/resources
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - DATABASE_URL=jdbc:mysql://HMS-db:3306/Hospital_mgmt
+      - DATABASE_USER=admin
+      - DATABASE_PASSWORD=admin
+    depends_on:
+      HMS-db:
+        condition: service_healthy
+    ports:
+      - "9000:9000"

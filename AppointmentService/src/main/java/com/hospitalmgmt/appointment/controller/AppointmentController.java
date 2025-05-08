@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hospitalmgmt.appointment.dtos.AppointmentDTO;
 import com.hospitalmgmt.appointment.entity.Appointment;
 import com.hospitalmgmt.appointment.service.AppointmentService;
 
@@ -26,7 +27,7 @@ public class AppointmentController {
     }
 
     @PostMapping
-    public Appointment bookAppointment(@RequestBody Appointment appointment) {
+    public Appointment bookAppointment(@RequestBody AppointmentDTO appointment) {
         return appointmentService.bookAppointment(appointment);
     }
 

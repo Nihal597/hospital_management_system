@@ -1,10 +1,10 @@
 package com.hospitalmgmt.authentication.entity;
 
+import java.sql.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-
-import java.sql.Date;
 
 @Entity
 @Table(name = "Doctors")
@@ -16,7 +16,12 @@ public class Doctor extends User {
     @Column(name = "years_of_experience")
     private Integer yearsOfExperience;
 
-    public Doctor(String name, Integer age, Date dob, String nationality, Long phoneNumber, String email, String employmentType, String specialisation, Date joinedDate, Integer yearsOfExperience) {
+    public Doctor() {
+        super();
+    }
+
+    public Doctor(String name, Integer age, Date dob, String nationality, Long phoneNumber, String email,
+            String employmentType, String specialisation, Date joinedDate, Integer yearsOfExperience) {
         super(name, age, dob, nationality, phoneNumber, email);
         this.employmentType = employmentType;
         this.specialisation = specialisation;
