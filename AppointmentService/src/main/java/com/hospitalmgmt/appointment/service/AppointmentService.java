@@ -1,13 +1,13 @@
-package com.hospitalmgmt.authentication.service;
+package com.hospitalmgmt.appointment.service;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.hospitalmgmt.authentication.dtos.AppointmentDTO;
-import com.hospitalmgmt.authentication.entity.Appointment;
-import com.hospitalmgmt.authentication.repository.AppointmentRepository;
+import com.hospitalmgmt.appointment.dtos.AppointmentDTO;
+import com.hospitalmgmt.appointment.entity.Appointment;
+import com.hospitalmgmt.appointment.repository.AppointmentRepository;
 
 @Service
 public class AppointmentService {

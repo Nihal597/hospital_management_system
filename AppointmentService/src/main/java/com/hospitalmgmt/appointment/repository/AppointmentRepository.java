@@ -1,10 +1,10 @@
-package com.hospitalmgmt.authentication.repository;
+package com.hospitalmgmt.appointment.repository;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.hospitalmgmt.authentication.entity.Appointment;
+import com.hospitalmgmt.appointment.entity.Appointment;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Integer> {
     // Get appointments by patient ID

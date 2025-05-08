@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from app.models.test_order import TestOrder
 
 # USER_SERVICE_URL = "http://localhost:9000"
-USER_SERVICE_URL = "http://user-service:9000"
+USER_SERVICE_URL = "http://userservice-clusterip"
 USERNAME = "anshul"
 PASSWORD = "anshul@123"
 
@@ -40,7 +40,7 @@ async def get_jwt_token() -> str:
             json={"username": USERNAME, "password": PASSWORD}
         )
         response.raise_for_status()
-        return response.text  # because the Spring Boot service returns token as plain text
+        return response.text
     
 # Call doctor API with Bearer token
 async def validate_doctor(doctor_id: int) -> bool:
