@@ -1,37 +1,43 @@
 package com.hospitalmgmt.authentication.service;
 
-import com.hospitalmgmt.authentication.entity.Admin;
-import com.hospitalmgmt.authentication.entity.UserInfoDetails;
-import com.hospitalmgmt.authentication.repository.AdminRepository;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.Optional;
+import com.hospitalmgmt.authentication.entity.Admin;
+import com.hospitalmgmt.authentication.entity.UserInfoDetails;
+import com.hospitalmgmt.authentication.repository.AdminRepository;
 
-    @Service
-    public class UserInfoService implements UserDetailsService {
+@Service
+public class UserInfoService implements UserDetailsService {
 
-        @Autowired
-        private AdminRepository repository;
+    @Autowired
+    private AdminRepository repository;
 
-        private PasswordEncoder encoder = new BCryptPasswordEncoder();
+    @Autowired
+    private RestTemplate restTemplate; // Inject RestTemplate to communicate with appointment service
 
-        @Override
-        public UserInfoDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-            Optional<Admin> userDetail = repository.findByusername(username);
+    private PasswordEncoder encoder = new BCryptPasswordEncoder();
 
-            return userDetail.map(UserInfoDetails::new)
-                    .orElseThrow(() -> new UsernameNotFoundException("Admin not found: " + username));
-        }
+    @Override
+    public UserInfoDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<Admin> userDetail = repository.findByusername(username);
 
-        public String addUser(Admin userInfo) {
-            // Encode password before saving the user
-            userInfo.setPassword((encoder.encode(userInfo.getPassword())));
-            repository.save(userInfo);
-            return "Admin Added Successfully";
-        }
+        return userDetail.map(UserInfoDetails::new)
+                .orElseThrow(() -> new UsernameNotFoundException("Admin not found: " + username));
+    }
+
+    public String addUser(Admin userInfo) {
+        // Encode password before saving the user
+        userInfo.setPassword((encoder.encode(userInfo.getPassword())));
+        repository.save(userInfo);
+        return "Admin Added Successfully";
+    }
+
 }
