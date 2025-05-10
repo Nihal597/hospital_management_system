@@ -9,5 +9,5 @@ FROM openjdk:17-slim
 WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
 ENV SPRING_PROFILES_ACTIVE=dev
-EXPOSE 9000
+EXPOSE 9010
 ENTRYPOINT ["java", "-jar", "app.jar"]
