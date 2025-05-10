@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appointment-depl
+spec:
+  selector:
+    matchLabels:
+      app: appointment-depl
+  template:
+    metadata:
+      labels:
+        app: appointment-depl
+    spec:
+      containers:
+      - name: appointment-depl
+        image: nihal597/appointment-service
+        ports:
+        - containerPort: 9010
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: local
+        - name: DATABASE_URL
+          value: jdbc:mysql://mysql-clusterip:3306/Hospital_mgmt
+        - name: DATABASE_USER
+          value: admin
+        - name: DATABASE_PASSWORD
+          value: admin
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: appointment-clusterip
+spec:
+  selector:
+    app: appointment-depl
+  ports:
+  - port: 80
+    targetPort: 9010

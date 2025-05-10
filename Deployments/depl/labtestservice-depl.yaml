@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: labtestservice-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: labtest-service
+  template:
+    metadata:
+      labels:
+        app: labtest-service
+    spec:
+      containers:
+      - name: labtest-service
+        image: harshitha729/labtest-service:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: DB_HOST
+          value: "labtestdb-clusterip"
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_USER
+          value: "labtestuser"
+        - name: DB_PASSWORD
+          value: "labtestpassword"
+        - name: DB_NAME
+          value: "lab_test_db"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: labtestservice-clusterip
+spec:
+  type: ClusterIP
+  selector:
+    app: labtest-service
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8000

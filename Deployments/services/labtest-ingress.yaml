@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: labtest-ingress
+  labels:
+    name: labtest-ingress
+spec:
+  rules:
+  - host: localhost
+    http:
+      paths:
+      - path: /api(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: labtestservice-clusterip
+            port:
+              number: 80
